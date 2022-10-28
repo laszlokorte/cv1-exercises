@@ -12,3 +12,9 @@ Then run a single python file like
 ```sh
 $ python sheet1/task1.py
 ```
+
+Some tasks depend on downloaded datasets that are not included in this repository.
+Make sure to download them first for example by running
+```$
+./sheet1/cifar-10-batches-py/download
+``` 
