@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{float}
+\usepackage{amsfonts}
 
 \title{Computer Vision\\Exercise 1}
 \author{Gruppe 26\\Laszlo Korte\\Alexander Remmes-Weitz
@@ -12,22 +14,42 @@
 \maketitle
 
 \section*{Task 3}
+\centering
+Given the normalized histograms:
 
 \begin{align*}
 p(X) &= [0.3, 0.1, 0.2, 0.0, 0.4, 0.0]\\
 q(X) &= [0.0, 0.1, 0.3, 0.0, 0.2, 0.4]\\
 \end{align*}
+
+The expected values are:
+
 \begin{align*}
-E(p) &= 0.3 \cdot 0 + 0.1 \cdot 1 + 0.2 \cdot 2 + 0 \cdot 3 + 0.4 \cdot 4 + 0 \cdot 5 = 2.1\\
-E(q) &= 0 \cdot 0 + 0.1 \cdot 1 + 0.3 \cdot 2 + 0 \cdot 3 + 0.2 \cdot 4 + 0.4 \cdot 5 = 3.5
+\mathbb{E}[p(X)] &= 0.3 \cdot 0 + 0.1 \cdot 1 + 0.2 \cdot 2 + 0 \cdot 3 + 0.4 \cdot 4 + 0 \cdot 5 = 2.1\\
+\mathbb{E}[q(X)] &= 0 \cdot 0 + 0.1 \cdot 1 + 0.3 \cdot 2 + 0 \cdot 3 + 0.2 \cdot 4 + 0.4 \cdot 5 = 3.5
 \end{align*}
+
+The cumulative histograms are:
+
 \begin{align*}
 P(X) &= [0.3, 0.4, 0.6, 0.6, 1.0, 1.0]\\
 Q(X) &= [0.0, 0.1, 0.4, 0.4, 0.6, 1.0]
 \end{align*}
+
+\begin{table}[H]
+
+    \centering\begin{tabular}{r|c|c|c|c|c|c}
+   bins & 0 & 1 & 2 & 3 & 4 & 5\\
+    \hline
+    $P(X)$ & 0.3 & 0.4 & 0.6 & 0.6 & 1.0 & 1.0\\
+    $Q(X)$ & 0.0 & 0.1 & 0.4 & 0.4 & 0.6 & 1.0
+\end{tabular}
+\end{table}
+
+The $L_1$ distance between the two histograms is:
+
 \begin{align*}
-L_1(p,q) &= \sqrt{|(0.3-0)| + |(0.1-0.1)| + |(0.2-0.3)| + |(0-0)| + |(0.4-0.2)| + |(0-0.4)|}\\
-&= 1.0
+& L_1(p(X),q(X)) = 1.0\\ &= \sqrt{|(0.3-0)| + |(0.1-0.1)| + |(0.2-0.3)| + |(0-0)| + |(0.4-0.2)| + |(0-0.4)|}
 \end{align*}
 
 \end{document}
