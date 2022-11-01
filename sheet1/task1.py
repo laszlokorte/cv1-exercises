@@ -1,3 +1,7 @@
+# Gruppe 26
+# Laszlo Korte
+# Alexander Remmes-Weitz
+
 import numpy as np
 import os
 

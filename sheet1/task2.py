@@ -1,3 +1,7 @@
+# Gruppe 26
+# Laszlo Korte
+# Alexander Remmes-Weitz
+
 import os
 from skimage import io, transform
 from skimage.color import rgba2rgb, rgb2gray
