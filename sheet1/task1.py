@@ -6,6 +6,9 @@ import numpy as np
 import os
 
 def main():
+    print(os.path.basename(__file__))
+    print("".join(open(__file__, 'r').readlines()[0:3]))
+
     bin_sizes = [2,10,51,255]
     categories = [1,4,8]
     training_size = 30

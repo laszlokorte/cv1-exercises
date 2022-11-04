@@ -10,6 +10,8 @@ import numpy as np
 from tqdm import tqdm
 
 def main():
+	print(os.path.basename(__file__))
+	print("".join(open(__file__, 'r').readlines()[0:3]))
 	window_sizes = [
 		(3, 7),
 		(11, 21),
