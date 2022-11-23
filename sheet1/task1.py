@@ -34,7 +34,7 @@ def main():
         correct = np.sum(predictions==test_labels)
         incorrect = np.sum(predictions!=test_labels)
 
-        print(f"Bins: {number_of_bins}, correct: {correct}, false: {incorrect}")
+        print(f"Bins: {number_of_bins}, correct: {correct}, false: {incorrect}, accuracy: {correct/(correct+incorrect)}")
 
 def unpickle(file):
     import pickle
