@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amsfonts}
+
+\title{Computer Vision\\Exercise 3}
+\author{Gruppe 26\\Laszlo Korte\\Alexander Remmes-Weitz
+}
+\date{November 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Task 3}
+
+In each iteration the probability of selecting \textit{only} inliers is $\epsilon^m$. The Probability of \textit{not only} selecting inliers is $(1-\epsilon^m)$.
+
+Each iteration is independent so \textit{not} finding a selection consisting of \textit{only} inliers after $k$ iterations is: $$(1-\epsilon^m)^k$$
+
+We call this a failure. We want this to happen with a probability not greater than $q$:
+
+$$q \ge (1-\epsilon^m)^k$$
+
+We call the probability that it does not happen $p$. 
+
+$$p = (1-q) \iff q = 1-p$$
+
+So we get
+
+$$(1-p) \ge (1-\epsilon^m)^k$$
+
+Now we resolve for $k$:
+
+\begin{align*}
+ & &\log(1-p) &\ge \log((1-\epsilon^m)^k) \\
+\iff && \log(1-p) &\ge k * \log(1-e^m) \\
+\iff && \frac{\log(1-p)}{\log(1-\epsilon^m)} &\le k  & \ge \text{inverts because the $\log$ is negative}
+\end{align*}
+
+\end{document}
