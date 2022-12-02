@@ -28,13 +28,12 @@ def main():
 		image_smooth = filters.gaussian(image_gray, sigma=3)
 		image_sobel = filters.sobel_h(image_smooth)
 
-
 		ax[i, 0].imshow(image_rot)
 		ax[i, 0].set_title(f"Original (rotation={a}°)")
 		ax[i, 1].imshow(image_gray, cmap='gray')
 		ax[i, 1].set_title(f"Gray and Horizon (rotation={a}°)")
 		ax[i, 2].imshow(image_smooth, cmap='gray')
-		ax[i, 2].set_title(f"Smoothed(sig=3) (rotation={a}°)")
+		ax[i, 2].set_title(f"Smooth (sigma=3) (rotation={a}°)")
 		ax[i, 3].imshow(image_sobel, cmap='gray')
 		ax[i, 3].set_title(f"Sobel and candidates (rotation={a}°)")
 
@@ -49,18 +48,20 @@ def main():
 	fig.tight_layout()
 	plt.show()
 
-def predict_horizon(image_sobel):
+def predict_horizon(image_sobel, line_count=20):
 	height, width = image_sobel.shape
 
-	hop_size = width // 20
-	minimums = image_sobel[:,::hop_size].argmin(0)
-	candidates = [(i*hop_size, y) for i, y in enumerate(minimums)]
+	hop_size = width // line_count
+	lines_x = np.arange(0, width, hop_size)
+	minimums = image_sobel[:,lines_x].argmin(0)
+	candidates = zip(lines_x, minimums)
 
 	ransac = RANSACRegressor(min_samples=2)
-	ransac.fit(np.arange(0, width, hop_size).reshape(-1, 1), minimums)
-	score = ransac.score(np.arange(0, width, hop_size).reshape(-1, 1), minimums)
+	ransac.fit(lines_x.reshape(-1, 1), minimums)
 
-	return candidates, (0,width-1), (ransac.predict([[0]])[0], ransac.predict([[width-1]])[0])
+	return candidates, \
+		(0,width-1), \
+		(ransac.predict([[0]])[0], ransac.predict([[width-1]])[0])
 
 if __name__ == '__main__':
 	main()

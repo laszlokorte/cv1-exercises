@@ -27,9 +27,14 @@ def main():
 	coins_in_px = [(name, int(size/image_res_mm_per_px)) for (name, size) in coins_in_mm]
 
 	image_edges = feature.canny(image_gray)
+	hough_spaces = np.concatenate([transform.hough_circle(image_edges, size/2) for (name, size) in coins_in_px])
+	radii = [size/2 for (name, size) in coins_in_px]
+	peaks = transform.hough_circle_peaks(hough_spaces, radii, num_peaks=2, total_num_peaks=10, normalize=True)
+
 
 	fig, ax = plt.subplots(len(coins_in_px), 2, figsize=(8,10))
 	fig.suptitle("Sheet 3, Task 1: Hough transform")
+	
 	ax[0, 0].imshow(image_gray, cmap='gray')
 	ax[0, 0].set_title(f"Coins Gray & Results")
 	ax[1, 0].imshow(image_edges, cmap='gray')
@@ -37,11 +42,6 @@ def main():
 	ax[2, 0].set_visible(False)
 	ax[3, 0].set_visible(False)
 	ax[4, 0].set_visible(False)
-
-	hough_spaces = np.concatenate([transform.hough_circle(image_edges, size/2) for (name, size) in coins_in_px])
-	sizes = [size/2 for (name, size) in coins_in_px]
-	peaks = transform.hough_circle_peaks(hough_spaces, sizes, num_peaks=2, total_num_peaks=10, normalize=True)
-
 
 	for i, hough in enumerate(hough_spaces):
 		ax[i, 1].imshow(hough, cmap='gray')
