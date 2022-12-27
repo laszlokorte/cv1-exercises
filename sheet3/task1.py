@@ -42,7 +42,7 @@ def main():
 	number_of_coins = len(coins_in_px)
 	columns = math.ceil(number_of_coins/2)
 	fig, axs = plt.subplots(2, columns+1,  figsize=(12,5))
-	hide_axis(axs)
+	hide_all_axis(axs)
 	fig.suptitle("Sheet 3, Task 1: Hough transform")
 	
 	# Plot original image and edges
@@ -70,11 +70,10 @@ def main():
 	fig.tight_layout()
 	plt.show()
 
-def hide_axis(axs):
+def hide_all_axis(axs):
 	for a in axs:
 		for x in a:
 			x.set_visible(False)
 
 if __name__ == '__main__':
 	main()
-

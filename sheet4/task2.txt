@@ -1,0 +1,3 @@
+UE(G_1) = (Area(S_1) + Area(S_4) - Area(G_1)) / Area(G_1) = (3 + 8 - 4) / 4 = 8/4 = 2
+
+UE(G_2) = (Area(S_3) - Area(G_2)) / Area(G_2) = (2-2)/2 = 0
