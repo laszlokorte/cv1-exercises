@@ -1,0 +1,10 @@
+# Gruppe 26
+# Laszlo Korte
+# Alexander Remmes-Weitz
+
+# Task 1
+
+a) The dominant local direction of the keypoint is 45deg because the histogram shows the highest peak at 0.3 for the 45deg bin.
+
+The value of the second largest 225deg bin is within (0.25/0.30 = 83%) the 80% threshold below the highest peak. But the next lower 135deg bin is not (0.20/0.30 = 66%).
+That is why two keypoints are created: one for the dominant direction of 45deg and one for the second strongest direction of 225deg.
