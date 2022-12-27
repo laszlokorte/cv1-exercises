@@ -1,6 +1,12 @@
 # Gruppe 26
 # Laszlo Korte
 # Alexander Remmes-Weitz
+# 
+# Question: how does the undersegmentation error (ue) depend on the number of superpixels?
+# Answer: The higher the number of superpixels the low is the undersegmentation error.
+# When the number of non-overlapping superpixels increases the size of the superpixels must decrease.
+# The ue increases most if large superpixels overlap only slightly with ground truth segment.
+# Reducing the superpixel sizes decrease the chance of that happening.
 
 import os
 import math
@@ -33,19 +39,24 @@ def main():
     ]
     segmentations = [slic(rgb_image, n_segments=n, compactness=c) for(n,c) in options]
 
-    undersegmentation_errors = [np.average(calc_undersegmentation(label_image, segmentation)) for segmentation in segmentations]
+    undersegmentation_errors = [calc_undersegmentation(label_image, segmentation) for segmentation in segmentations]
+    ue_averages = [np.average(ues) for (_,ues) in undersegmentation_errors]
     number_of_segments = np.count_nonzero(np.unique(label_image))
-    # print(np.unique(segmented_image))
+
     fig, axs = plt.subplots(3,4, figsize=(14,8))
     axs[0,0].imshow(rgb_image)
     axs[0,0].set_title("Original Image")
     axs[0,1].imshow(label_image)
     axs[0,1].set_title(f"Ground Truth, {number_of_segments} segments")
-    for (i, seg), (n,c), ue in zip(enumerate(segmentations,start=2), options, undersegmentation_errors):
+    for (i, seg), (n,c), ue, (labels, errors) in zip(enumerate(segmentations,start=2), options, ue_averages, undersegmentation_errors):
         col = i % 4
         row = i // 4
         axs[row,col].imshow(seg)
         axs[row,col].set_title(f"n_seg={n}, comp={c}, avg(ue)={ue:.2f}")
+        print("")
+        print(f"n_seg={n}, comp={c}, avg(ue)={ue:.2f}:")
+        for (e,label) in zip(errors, labels):
+            print(f"UE({label}):{e:.2f}")
     for ax in axs.reshape(-1):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
@@ -56,7 +67,7 @@ def calc_undersegmentation(truth, segmentation):
     true_labels = np.unique(truth)
     true_labels = true_labels[true_labels!=0]
     ues = np.array([calc_ue_for_label(truth, segmentation, label) for label in true_labels])
-    return ues
+    return true_labels, ues
 
 def calc_ue_for_label(truth, segmentation, label):
     true_mask = truth == label
