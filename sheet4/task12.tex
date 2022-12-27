@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+
+\title{Computer Vision\\Exercise 4}
+\author{Gruppe 26\\Laszlo Korte\\Alexander Remmes-Weitz
+}
+\date{December 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Task 1}
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item The dominant local direction of the keypoint is 45° because the histogram shows the highest peak at 0.3 for the 45° bin.
+    \item The magnitude of the second largest bin (225°) is within the 80\% threshold of the highest peak (0.25/0.30 = 83\%). But the next lower bin (135°) is not (0.20/0.30 = 66\%). 
+    
+    That is why two keypoints are created: one for the dominant direction of 45° and one for the second strongest direction of 225°.
+\end{enumerate}
+
+
+\section*{Task 2}
+
+\begin{align*}
+\mathrm{UE}(G_1) &= \frac{\mathrm{Area}(S_1) + \mathrm{Area}(S_4) - \mathrm{Area}(G_1)}{\mathrm{Area}(G_1)} = \frac{3 + 8 - 4}{4} = 2 \\
+\mathrm{UE}(G_2) &= \frac{\mathrm{Area}(S_3) - \mathrm{Area}(G_2)}{\mathrm{Area}(G_2)} = \frac{2-2}{2} = 0
+\end{align*}
+
+\end{document}
